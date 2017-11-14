@@ -21,20 +21,12 @@ fbcomments:
 		if (!hexo.config.fbcomments) {
             config = { enabled: false };
             return;
-			//return(false);
 		}
 
 		config = hexo.config.fbcomments;
 		config.enabled = config.enabled || true;
-		// if (config.enabled === false)
-		// 	return(false);
-
 		config.lang = config.lang || 'en_US';
 		config.appId = config.appId || 0;	// This option MUST be set. TODO: Raise error.
-        config.numPosts = config.numPosts;
-        
-        
-		// return(true);
 	}
 
 	function fbcommentshead() {
@@ -84,4 +76,3 @@ fbcomments:
 	helper.register('fbcomments', fbcomments);
 	helper.register('fbcommentshead', fbcommentshead);
 })(hexo.extend.helper);
-
