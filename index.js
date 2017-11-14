@@ -19,34 +19,39 @@ fbcomments:
 
 	function initConfig() {
 		if (!hexo.config.fbcomments) {
-			config = { enabled: false };
-			return(false);
+            config = { enabled: false };
+            return;
+			//return(false);
 		}
 
 		config = hexo.config.fbcomments;
 		config.enabled = config.enabled || true;
-		if (config.enabled === false)
-			return(false);
+		// if (config.enabled === false)
+		// 	return(false);
 
-		config.lang = config.lang || 'en_GB';
+		config.lang = config.lang || 'en_US';
 		config.appId = config.appId || 0;	// This option MUST be set. TODO: Raise error.
-		config.numPosts = config.numPosts || 5;
-
-		return(true);
+        config.numPosts = config.numPosts;
+        
+        
+		// return(true);
 	}
 
 	function fbcommentshead() {
-		if(initConfig() === false) return("");
+        if(!config){
+            initConfig();
+        }
+		if(!config.enabled) return("");
 
 		var tag = '<div id="fb-root"></div>';
 		tag += '<script>(function(d, s, id) {';
 		tag += 'var js, fjs = d.getElementsByTagName(s)[0];';
 		tag += 'if (d.getElementById(id)) return;';
 		tag += 'js = d.createElement(s); js.id = id;';
-		tag += 'js.src = "//connect.facebook.net/';
+		tag += 'js.src = "https://connect.facebook.net/';
 		tag += config.lang; // Language
-		tag += '/sdk.js#xfbml=1&version=v2.5&appId=';
-		tag += config.appId + ';';	// AppID
+		tag += '/sdk.js#xfbml=1&version=v2.11&appId=';
+		tag += config.appId + '";';	// AppID
 		tag += 'fjs.parentNode.insertBefore(js, fjs);';
 		tag += "}(document, 'script', 'facebook-jssdk'));</script>";
 
@@ -54,19 +59,25 @@ fbcomments:
 	}
 
 	function fbcomments(permaLink) {
-		if (config == null || config.enabled === false)
-			return("");		
+        if(!config){
+            initConfig();
+        }
+        if(!config.enabled) return("");
 
 		permaLink = permaLink || "err";
 
 		var ret = '<section id="comments">';
 		ret += '<div class="fb-comments" data-href="';
 		ret += permaLink;
-		ret += '" data-numposts="';
-		ret += config.numPosts;
+        ret += config.numPosts? ('" data-numposts="' + config.numPosts) : '';
+        ret += config.colorscheme? ('" data-colorscheme="' + config.colorscheme) : '';
+        ret += config.mobile? ('" data-mobile="' + config.mobile) : '';
+        ret += config.orderBy? ('" data-order-by="' + config.orderBy) : '';
+        ret += config.width? ('" data-width="' + config.width) : '';
 		ret += '"></div>';
 		ret += '</section>';
 
+        
 		return(ret);
 	}
 

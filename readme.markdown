@@ -8,7 +8,7 @@ Usage
 
 Install the plugin, and setup the config properly. If there is no configuration, the plugin will do nothing.
 
-The theme needs to call a ```<%- fbcommentshead() %>``` on header (before the body tag) and ```<%- fbcomments(post.permalink) %>``` on the place that you want the comments to appear.
+The theme needs to call a ```<%- fbcommentshead() %>``` on body (right after the opening body tag) and ```<%- fbcomments(url) %>``` on the place that you want the comments to appear.
 
 Configuration
 -------------
@@ -26,10 +26,19 @@ fbcomments:
 
 Parameters
 
-* **enabled** (optional) enable/disable your plugin in a pinch
-* **lang** (optional) the language to serve the facebook comments (default: en_GB)
 * **appId** (required) the AppID responsible for the comments
-* **numPosts** (optional) number of posts. Default: 5.
+* **enabled** (optional) enable/disable your plugin in a pinch (default: true)
+* **lang** (optional) the language to serve the facebook comments (default: en_GB)
+
+The following parameters are for comment plugin settings, check [Official Documentation](https://developers.facebook.com/docs/plugins/comments/) for setting descriptions and their defaults.
+
+| parameter | Comment plugin setting name |
+| --- | --- |
+| **colorscheme** | colorscheme |
+| **mobile** | mobile |
+| **orderBy** | orderby |
+| **numPosts** | num_posts |
+| **width** | width |
 
 More
 ----
@@ -37,7 +46,8 @@ More information about the facebook comments plugin on the [Official Documentati
 
 Author
 ------
-Created and mantained by Sergio Moura.
+Created and mantained by Sergio Moura.  
+Nov.14.2017: Updated against latest comment plugin settings by WorldFS
 
 License
 -------
